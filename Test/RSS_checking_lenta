@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><rss version="2.0">
+    <channel>
+        <title>Test RSS</title>
+        <link>https://Test.com</link>
+        <language>ru</language>
+                <item>
+            <title>Test object</title>
+            <pubDate>Mon, 27 Feb 2023 00:00:00 +0300</pubDate>
+            <link>https:/Test</link>
+        </item>
+            </channel>
+</rss>
