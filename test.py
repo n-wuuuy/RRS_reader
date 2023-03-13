@@ -1,6 +1,6 @@
 import unittest
 from unittest import TestCase, mock
-from ..scripts.data_parser import  DataParser
+from scripts.data_parser import  DataParser
 
 
 class TestDataParser(TestCase):
