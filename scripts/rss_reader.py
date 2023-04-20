@@ -45,10 +45,10 @@ class RSSReader:
         argument_parser.add_argument('--date',
                                      help=r'Display cached news for the specified date (date format - \'YYYYmmDD\')',
                                      type=validate_date)
-        argument_parser.add_argument('--to-html',dest='to_html',
+        argument_parser.add_argument('--to-html', dest='to_html',
                                      help='Convert news to HTML format and save file to the specified path.',
                                      type=str)
-        argument_parser.add_argument('--to-pdf',dest='to_pdf',
+        argument_parser.add_argument('--to-pdf', dest='to_pdf',
                                      help='Convert news to pdf format and save file to the specified path.',
                                      type=str)
         return argument_parser.parse_args()
@@ -110,9 +110,12 @@ class RSSReader:
                                      'Links': data[4],
                                      'Image': data[5]})
             return correct_data
-        
-        def conver_to_type(data_output: Dict) ->None:
-            converter=Converter(data_output,self.argument.to_html,self.argument.to_pdf)
+
+        def conver_to_type(data_output: Dict) -> None:
+            """Used to convert rss feeds to html and pdf formats."""
+            converter = Converter(data_output,
+                                  self.argument.to_html,
+                                  self.argument.to_pdf)
             converter.convert_news()
 
         cache_news_data()
