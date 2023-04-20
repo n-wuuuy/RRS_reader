@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import List, Dict
 from cache_storage import ReadCache, WriteCache
 from display_news import Output_data
+from format_converter import Converter
 
 
 class RSSReader:
@@ -44,6 +45,12 @@ class RSSReader:
         argument_parser.add_argument('--date',
                                      help=r'Display cached news for the specified date (date format - \'YYYYmmDD\')',
                                      type=validate_date)
+        argument_parser.add_argument('--to-html',dest='to_html',
+                                     help='Convert news to HTML format and save file to the specified path.',
+                                     type=str)
+        argument_parser.add_argument('--to-pdf',dest='to_pdf',
+                                     help='Convert news to pdf format and save file to the specified path.',
+                                     type=str)
         return argument_parser.parse_args()
 
     def turn_on_verbose(self) -> None:
@@ -103,6 +110,10 @@ class RSSReader:
                                      'Links': data[4],
                                      'Image': data[5]})
             return correct_data
+        
+        def conver_to_type(data_output: Dict) ->None:
+            converter=Converter(data_output,self.argument.to_html,self.argument.to_pdf)
+            converter.convert_news()
 
         cache_news_data()
         cache_data = get_news_data()
@@ -110,6 +121,8 @@ class RSSReader:
             print('No news in the selected source with specified application parameters')
             return
         news_data = cache_data[:self.argument.limit]
+        if self.argument.to_html or self.argument.to_pdf:
+            conver_to_type(news_data)
         information_display(news_data)
 
     def run_rss_reader(self) -> None:
