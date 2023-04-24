@@ -51,6 +51,9 @@ class RSSReader:
         argument_parser.add_argument('--to-pdf', dest='to_pdf',
                                      help='Convert news to pdf format and save file to the specified path.',
                                      type=str)
+        argument_parser.add_argument('--colorize',
+                                     help='Outputs the result of the utility in colorized mode.',
+                                     action='store_true')
         return argument_parser.parse_args()
 
     def turn_on_verbose(self) -> None:
@@ -61,7 +64,7 @@ class RSSReader:
         """Execute RSS reader application."""
         def information_display(data_output: Dict) -> None:
             """Displays information on the screen."""
-            output_info = Output_data(data_output)
+            output_info = Output_data(data_output, self.argument.colorize)
             if self.argument.json:
                 output_info.output_json()
             else:
