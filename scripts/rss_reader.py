@@ -76,7 +76,6 @@ class RSSReader:
                 get_data = ReadCache(self.argument.source, self.argument.date)
                 untransformed_cache_data = get_data.read_cache('RSSDB.db')
                 cache_data = conver_data_output(untransformed_cache_data)
-                get_data.delete('RSSDB.db')
             else:
                 rss_reader = DataParser(self.argument.source)
                 rss_reader.fill_information()

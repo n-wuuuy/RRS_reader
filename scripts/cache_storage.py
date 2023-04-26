@@ -16,7 +16,7 @@ class CacheStorage:
         connection = sqlite3.connect(path_storage)
         curs = connection.cursor()
         curs.execute('''CREATE TABLE IF NOT EXISTS stocks
-            (title TEXT, date TEXT, link TEXT, description TEXT, links TEXT, image TEXT )''')
+            (title TEXT, date TEXT, link TEXT, description TEXT, links TEXT, image TEXT, UNIQUE(link))''')
         connection.commit()
         connection.close()
         logging.info('Successful initialze RSS cache database')
@@ -40,7 +40,7 @@ class WriteCache(CacheStorage):
         """Filling the cache in the database."""
         connection = sqlite3.connect(path_storage)
         curs = connection.cursor()
-        curs.executemany('INSERT INTO stocks VALUES(?,?,?,?,?,?) ', (self.news_data))
+        curs.executemany('INSERT OR IGNORE INTO stocks VALUES(?,?,?,?,?,?)', (self.news_data))
         connection.commit()
         connection.close()
 
