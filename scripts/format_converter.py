@@ -99,7 +99,7 @@ class Converter:
         try:
             self.path_html = os.path.join(self.path_html,
                                           ''.join('rss-reader_file.html'))
-            with open(self.path_html, 'w') as file_obj:
+            with open(self.path_html, 'w', encoding="utf-16") as file_obj:
                 file_obj.write(source_html)
         except OSError:
             logging.error('Error : Can\'t create html file')
@@ -109,7 +109,7 @@ class Converter:
         try:
             self.path_pdf = os.path.join(self.path_pdf,
                                          ''.join('rss-reader_file.pdf'))
-            with open(self.path_pdf, 'w+b') as file_obj:
+            with open(self.path_pdf, 'w+b',encoding="utf-16") as file_obj:
                 pisa_status = pisa.CreatePDF(source_html, dest=file_obj)
         except OSError:
             logging.error('Error : Can\'t create pdf file')
